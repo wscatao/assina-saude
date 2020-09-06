@@ -7,7 +7,7 @@ const MedicalRecord = () => {
   const { medicalRecords } = useContext(MedicalContext);
 
   const dateTreatment = (arrRecords) => {
-    // Função criada para separar data e hora utilizando Regex e criar um novo array de prontuários.
+    // Função criada para separar data e hora utilizando Regex e criar um novo array de prontuários com data e hora separado.
     const createdAt = arrRecords.map((dates) => dates.created_at);
     const dateRegex = /[0-9]+-[0-9]+-[0-9]+/g;
     const timeRegex = /[0-9]+:[0-9]+:[0-9]+/g;
@@ -29,8 +29,21 @@ const MedicalRecord = () => {
         time: times[i],
       });
     });
+    console.log(newMedicalRecord);
+    // Então é feito um map no novo array que retorna a lista de prontuários montada.
+    const list = newMedicalRecord.map((record) => (
+      <li key={`${record.queixa}+${record.i}`}>
+        <p>
+          Horário: {record.time[0]}
+          Data: {record.date[0]}
+          Anamese Queixa Principal: {record.queixa.label}
+          Doenças Adulto: {record.doencas.map((doenca) => doenca.label)}
+          Histórico da moléstia: {record.historico}
+        </p>
+      </li>
+    ));
 
-    return newMedicalRecord;
+    return list;
   };
 
   return (
@@ -39,7 +52,7 @@ const MedicalRecord = () => {
       {medicalRecords.length === 0 ? (
         <p>Nenhum prontuário cadastrado</p>
       ) : (
-        dateTreatment(medicalRecords)
+        <ul>{dateTreatment(medicalRecords)}</ul>
       )}
       <Link to="/cadastro">Adicionar novo prontuário</Link>
     </div>
@@ -93,4 +106,4 @@ length: 1
 <prototype>: Array []
 ​​
 <prototype>: {…
-*/ 
+*/
