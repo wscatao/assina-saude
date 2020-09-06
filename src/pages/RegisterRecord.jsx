@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { getDiseases, getComplaints, newMedicalRecord } from '../data/Data';
 import MedicalContext from '../context/MedicalContext';
@@ -7,6 +8,7 @@ import Complaints from '../components/Complaints';
 import History from '../components/History';
 
 const RegisterRecord = () => {
+  const hist = useHistory();
   const [selectedDiseases, setSelectedDiseases] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState('');
   const [history, setHistory] = useState('');
@@ -38,6 +40,8 @@ const RegisterRecord = () => {
     responseSubmit.then((data) =>
       setMedicationRecords([...medicalRecords, data]),
     );
+
+    hist.push('/');
   };
 
   useEffect(() => {
