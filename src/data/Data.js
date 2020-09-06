@@ -1,36 +1,24 @@
 const axios = require('axios').default;
 
-const checkServerStatus = async () => {
+export const getComplaints = async () => {
   try {
-    axios
-      .get('https://assina-prontuario.herokuapp.com/')
-      .then((response) => console.log(response));
+    const response = await axios.get('https://assina-prontuario.herokuapp.com/queixas');
+    return response.data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-const getComplaints = async () => {
+export const getDiseases = async () => {
   try {
-    axios
-      .get('https://assina-prontuario.herokuapp.com/queixas')
-      .then(({ data }) => console.log(data));
+    const response = await axios.get('https://assina-prontuario.herokuapp.com/doencas');
+    return response.data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
-const getDiseases = async () => {
-  try {
-    axios
-      .get('https://assina-prontuario.herokuapp.com/doencas')
-      .then(({ data }) => console.log(data));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const newMedicalRecord = async (queixa, doencas, historico) => {
+export const newMedicalRecord = async (queixa, doencas, historico) => {
   try {
     axios
       .post('https://assina-prontuario.herokuapp.com/prontuario', {
@@ -43,5 +31,3 @@ const newMedicalRecord = async (queixa, doencas, historico) => {
     console.log(error);
   }
 };
-
-export { checkServerStatus, getComplaints, getDiseases, newMedicalRecord };
