@@ -9,7 +9,7 @@ const Complaints = (props) => {
       <label htmlFor="complaints">
         Queixa Principal
         <select id="complaints" onChange={handleChange}>
-          <option value=""> </option>
+          <option value={0}>Selecione...</option>
           {arrComplaints.map((complaint) => (
             <option key={complaint.id} value={complaint.id}>
               {complaint.label}

@@ -9,7 +9,7 @@ const Disease = (props) => {
       <label htmlFor="diseases">
         Doenças Adulto
         <select id="diseases" onChange={handleChange}>
-          <option value=""> </option>
+          <option value={0}>Selecione...</option>
           {arrDiseases.map((disease) => (
             <option key={disease.id} value={disease.id}>
               {disease.label}

@@ -20,3 +20,5 @@ const MedicalRecord = () => {
 };
 
 export default MedicalRecord;
+
+/* [{"historico":"Criando um post e armazenando no contexto","queixa":{"label":"Vômito","id":1},"doencas":[{"label":"Câncer","id":1}],"created_at":"2020-09-06T14:48:02.086Z","_id":"nRR9kDrN5aMSGGJA"},{"historico":"Criando um post e armazenando no contexto","queixa":{"label":"Vômito","id":1},"doencas":[{"label":"Câncer","id":1}],"created_at":"2020-09-06T14:48:10.247Z","_id":"INwzesfwvSGIZaGz"}] */

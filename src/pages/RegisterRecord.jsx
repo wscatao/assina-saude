@@ -1,23 +1,43 @@
 import React, { useEffect, useContext, useState } from 'react';
 
-import { getDiseases, getComplaints } from '../data/Data';
+import { getDiseases, getComplaints, newMedicalRecord } from '../data/Data';
 import MedicalContext from '../context/MedicalContext';
 import Disease from '../components/Disease';
 import Complaints from '../components/Complaints';
+import History from '../components/History';
 
 const RegisterRecord = () => {
   const [selectedDiseases, setSelectedDiseases] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState('');
-  const { complaints, diseases, setComplaints, setDiseases } = useContext(
-    MedicalContext,
-  );
+  const [history, setHistory] = useState('');
+  const {
+    complaints,
+    diseases,
+    medicalRecords,
+    setComplaints,
+    setDiseases,
+    setMedicationRecords,
+  } = useContext(MedicalContext);
 
   const createDisease = (e) => {
+    if (e.target.value === '0') return;
     setSelectedDiseases([...selectedDiseases, e.target.value]);
   };
 
   const createComplaint = (e) => {
+    if (e.target.value === '0') return;
     setSelectedComplaint(e.target.value);
+  };
+
+  const registerForm = () => {
+    const responseSubmit = newMedicalRecord(
+      selectedComplaint,
+      selectedDiseases,
+      history,
+    );
+    responseSubmit.then((data) =>
+      setMedicationRecords([...medicalRecords, data]),
+    );
   };
 
   useEffect(() => {
@@ -34,6 +54,10 @@ const RegisterRecord = () => {
       <form>
         <Disease arrDiseases={diseases} handleChange={createDisease} />
         <Complaints arrComplaints={complaints} handleChange={createComplaint} />
+        <History handleChange={setHistory} />
+        <button type="button" onClick={registerForm}>
+          Salvar
+        </button>
       </form>
     </div>
   );
