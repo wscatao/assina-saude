@@ -16,17 +16,18 @@ const MedicalRecord = () => {
         <h1>Prontuário Eletrônico</h1>
         <Grid container spacing={3}>
           {medicalRecords.length === 0 ? (
-            <p>Nenhum prontuário cadastrado</p>
+            <div>Nenhum prontuário cadastrado</div>
           ) : null}
           {medicalRecords &&
             medicalRecords.length > 0 &&
-            medicalRecords.map((record) => (
-              <Grid item xs={12} sm={6} md={3}>
+            medicalRecords.map((record, i) => (
+              <Grid item xs={12} sm={6} md={3} key={`${record.historico}+${i}`}>
                 <ProntCard
                   created={record.created_at}
                   queixa={record.queixa}
                   doencas={record.doencas}
                   historico={record.historico}
+                  key={`${record.historico}+${i}`}
                 />
               </Grid>
             ))}

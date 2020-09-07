@@ -44,19 +44,18 @@ const ProntCard = (props) => {
             {`Hora: ${time} Data: ${date}`}
           </Typography>
         }
-        square={true}
       />
       <CardContent>
-        <Typography className={classes.label} >Queixa principal:</Typography>
-        <Typography>{queixa.label}</Typography>
-        <Typography className={classes.label}>Doenças Adulto:</Typography>
-        <Typography>
+        <Typography  component={'div'} className={classes.label} >Queixa principal:</Typography>
+        <Typography component={'div'} >{queixa.label}</Typography>
+        <Typography  component={'div'} className={classes.label}>Doenças Adulto:</Typography>
+        <Typography component={'div'} >
           {doencas.map(({ label }) => (
-            <Chip className={classes.chip} label={label} size="small" disabled />
+            <Chip key={label} className={classes.chip} label={label} size="small" disabled />
           ))}
         </Typography>
-        <Typography className={classes.label}>Histórico da moléstia:</Typography>
-        <Typography>{historico}</Typography>
+        <Typography  component={'div'} className={classes.label}>Histórico da moléstia:</Typography>
+        <Typography component={'div'} >{historico}</Typography>
       </CardContent>
     </Card>
   );

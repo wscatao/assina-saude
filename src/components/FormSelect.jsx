@@ -15,6 +15,7 @@ const FormSelect = (props) => {
         onChange={handleChange}
         fullWidth
         select
+        defaultValue=""
       >
         {arrData.map((element) => (
           <MenuItem key={element.id} value={element}>
