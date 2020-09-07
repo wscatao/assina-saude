@@ -1,5 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { getDiseases, getComplaints, newMedicalRecord } from '../data/Data';
 import MedicalContext from '../context/MedicalContext';
@@ -7,7 +12,28 @@ import Disease from '../components/Disease';
 import Complaints from '../components/Complaints';
 import History from '../components/History';
 
+// Estilização
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    // padding: theme.spacing(0.3),
+    margin: 0,
+    height: '40px',
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+  saveButton: {
+    marginTop: '2em',
+  },
+}));
+
 const RegisterRecord = () => {
+  const classes = useStyles();
   const hist = useHistory();
   const [selectedDiseases, setSelectedDiseases] = useState([]);
   const [selectedComplaint, setSelectedComplaint] = useState('');
@@ -22,21 +48,23 @@ const RegisterRecord = () => {
   } = useContext(MedicalContext);
 
   const createDisease = (e) => {
-    if (e.target.value === '0') return;
+    // Armazena o objeto inteiro do evento em selecionado
+    const { id } = e.target.value;
+    if (id === '0') return;
     setSelectedDiseases([...selectedDiseases, e.target.value]);
   };
 
   const createComplaint = (e) => {
+    // Cria apenas uma queixa por requisição, armazena apenas o id.
     if (e.target.value === '0') return;
     setSelectedComplaint(e.target.value);
   };
 
   const registerForm = () => {
-    const responseSubmit = newMedicalRecord(
-      selectedComplaint,
-      selectedDiseases,
-      history,
-    );
+    // Separa os Ids do que foi selecionado
+    const getIds = selectedDiseases.map((dis) => dis.id);
+
+    const responseSubmit = newMedicalRecord(selectedComplaint, getIds, history);
     responseSubmit.then((data) =>
       setMedicationRecords([...medicalRecords, data]),
     );
@@ -44,7 +72,14 @@ const RegisterRecord = () => {
     hist.push('/');
   };
 
+  const handleDelete = (listItem) => {
+    setSelectedDiseases(
+      selectedDiseases.filter((disease) => disease.id !== listItem.id),
+    );
+  };
+
   useEffect(() => {
+    // Ao carregar a página faz uma requisição para API e cria um array com os dados no contexto.
     const diseasesData = getDiseases();
     diseasesData.then(({ data }) => setDiseases([...data]));
 
@@ -53,17 +88,43 @@ const RegisterRecord = () => {
   }, [setDiseases, setComplaints]);
 
   return (
-    <div>
-      <h1>Cadastro de Prontuário</h1>
-      <form>
-        <Disease arrDiseases={diseases} handleChange={createDisease} />
-        <Complaints arrComplaints={complaints} handleChange={createComplaint} />
-        <History handleChange={setHistory} />
-        <button type="button" onClick={registerForm}>
-          Salvar
-        </button>
-      </form>
-    </div>
+    <Container maxWidth="md">
+      <div>
+        <h1>Cadastro de Prontuário</h1>
+        <form>
+          <Complaints
+            arrComplaints={complaints}
+            handleChange={createComplaint}
+          />
+          <Disease arrDiseases={diseases} handleChange={createDisease} />
+          <p>Doenças selecionadas:</p>
+          <Paper component="ul" className={classes.root}>
+            {selectedDiseases &&
+              selectedDiseases.length > 0 &&
+              selectedDiseases.map((dis) => (
+                <li key={dis.id}>
+                  <Chip
+                    label={dis.label}
+                    color="secondary"
+                    onDelete={() => handleDelete(dis)}
+                    className={classes.chip}
+                  />
+                </li>
+              ))}
+          </Paper>
+          <History handleChange={setHistory} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={registerForm}
+            fullWidth
+            className={classes.saveButton}
+          >
+            Salvar
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 };
 

@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const Disease = (props) => {
   const { arrDiseases, handleChange } = props;
 
   return (
     <div>
-      <label htmlFor="diseases">
-        Doenças Adulto
-        <select id="diseases" onChange={handleChange}>
-          <option value={0}>Selecione...</option>
-          {arrDiseases.map((disease) => (
-            <option key={disease.id} value={disease.id}>
-              {disease.label}
-            </option>
-          ))}
-        </select>
-      </label>
+      <TextField
+        label="Doenças Adulto"
+        helperText="Selecione a doença"
+        onChange={handleChange}
+        fullWidth
+        select
+      >
+        {arrDiseases.map((disease) => (
+          <MenuItem key={disease.id} value={disease}>
+            {disease.label}
+          </MenuItem>
+        ))}
+      </TextField>
     </div>
   );
 };

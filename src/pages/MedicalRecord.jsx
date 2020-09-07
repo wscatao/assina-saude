@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import MedicalContext from '../context/MedicalContext';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
 
 const MedicalRecord = () => {
   const { medicalRecords } = useContext(MedicalContext);
@@ -29,7 +31,7 @@ const MedicalRecord = () => {
         time: times[i],
       });
     });
-    console.log(newMedicalRecord);
+
     // Então é feito um map no novo array que retorna a lista de prontuários montada.
     const list = newMedicalRecord.map((record) => (
       <li key={`${record.queixa}+${record.i}`}>
@@ -47,63 +49,25 @@ const MedicalRecord = () => {
   };
 
   return (
-    <div>
-      <h1>Prontuário Eletrônico</h1>
-      {medicalRecords.length === 0 ? (
-        <p>Nenhum prontuário cadastrado</p>
-      ) : (
-        <ul>{dateTreatment(medicalRecords)}</ul>
-      )}
-      <Link to="/cadastro">Adicionar novo prontuário</Link>
-    </div>
+    <Container maxWidth="md">
+      <div>
+        <h1>Prontuário Eletrônico</h1>
+        {medicalRecords.length === 0 ? (
+          <p>Nenhum prontuário cadastrado</p>
+        ) : (
+          <ul>{dateTreatment(medicalRecords)}</ul>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/cadastro"
+        >
+          Adicionar novo prontuário
+        </Button>
+      </div>
+    </Container>
   );
 };
 
 export default MedicalRecord;
-
-/* [{"historico":"Criando um post e armazenando no contexto","queixa":{"label":"Vômito","id":1},"doencas":[{"label":"Câncer","id":1}],"created_at":"2020-09-06T14:48:02.086Z","_id":"nRR9kDrN5aMSGGJA"},{"historico":"Criando um post e armazenando no contexto","queixa":{"label":"Vômito","id":1},"doencas":[{"label":"Câncer","id":1}],"created_at":"2020-09-06T14:48:10.247Z","_id":"INwzesfwvSGIZaGz"}] */
-
-/*
-​
-0: Array [ "2020-09-06" ]
-​
-0: Array [ "15:58:42" ]
-*/
-
-/*
-date: (1) […]
-​​​
-0: "2020-09-06"
-​​​
-length: 1
-​​​
-<prototype>: Array []
-​​
-doencas: (1) […]
-​​​
-0: Object { label: "Diabetes", id: 2 }
-​​​
-length: 1
-​​​
-<prototype>: Array []
-​​
-historico: "asdadasdasd"
-​​
-queixa: {…}
-​​​
-id: 1
-​​​
-label: "Vômito"
-​​​
-<prototype>: Object { … }
-​​
-time: (1) […]
-​​​
-0: "16:11:34"
-​​​
-length: 1
-​​​
-<prototype>: Array []
-​​
-<prototype>: {…
-*/

@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
+import theme from './ui/Theme';
 import MedicalProvider from './context/ContextProvider';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <MedicalProvider>
-      <App />
-    </MedicalProvider>
-  </BrowserRouter>,
+  <ThemeProvider theme={theme}>
+    <BrowserRouter>
+      <MedicalProvider>
+        <CssBaseline />
+        <App />
+      </MedicalProvider>
+    </BrowserRouter>
+  </ThemeProvider>,
   document.getElementById('root'),
 );
 
