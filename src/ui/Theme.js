@@ -5,6 +5,10 @@ const theme = createMuiTheme({
     background: {
       default: '#F2F2F2',
     },
+    common: {
+      cardHeader: '#0077B6',
+      cardSubHeader: '#0096C7',
+    }
   },
 });
 

@@ -16,7 +16,7 @@ import History from '../components/History';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
     listStyle: 'none',
     // padding: theme.spacing(0.3),
@@ -105,7 +105,7 @@ const RegisterRecord = () => {
             helperText="Selecione a doença"
           />
           <p>Doenças selecionadas:</p>
-          <Paper component="ul" className={classes.root}>
+          <div component="ul" className={classes.root}>
             {selectedDiseases &&
               selectedDiseases.length > 0 &&
               selectedDiseases.map((dis) => (
@@ -118,7 +118,7 @@ const RegisterRecord = () => {
                   />
                 </li>
               ))}
-          </Paper>
+          </div>
           <History handleChange={setHistory} />
           <Button
             variant="contained"
