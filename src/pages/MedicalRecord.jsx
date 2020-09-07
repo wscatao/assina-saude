@@ -9,6 +9,7 @@ const MedicalRecord = () => {
   const { medicalRecords } = useContext(MedicalContext);
 
   const dateTreatment = (arrRecords) => {
+    console.log('lista de prontuários', arrRecords);
     // Função criada para separar data e hora utilizando Regex e criar um novo array de prontuários com data e hora separado.
     const createdAt = arrRecords.map((dates) => dates.created_at);
     const dateRegex = /[0-9]+-[0-9]+-[0-9]+/g;

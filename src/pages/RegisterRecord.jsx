@@ -8,8 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { getDiseases, getComplaints, newMedicalRecord } from '../data/Data';
 import MedicalContext from '../context/MedicalContext';
-import Disease from '../components/Disease';
-import Complaints from '../components/Complaints';
+import FormSelect from '../components/FormSelect';
 import History from '../components/History';
 
 // Estilização
@@ -56,12 +55,13 @@ const RegisterRecord = () => {
 
   const createComplaint = (e) => {
     // Cria apenas uma queixa por requisição, armazena apenas o id.
-    if (e.target.value === '0') return;
-    setSelectedComplaint(e.target.value);
+    const { id } = e.target.value;
+    if (id === '0') return;
+    setSelectedComplaint(id);
   };
 
   const registerForm = () => {
-    // Separa os Ids do que foi selecionado
+    // Separa os Ids para enviar a requisição
     const getIds = selectedDiseases.map((dis) => dis.id);
 
     const responseSubmit = newMedicalRecord(selectedComplaint, getIds, history);
@@ -92,11 +92,18 @@ const RegisterRecord = () => {
       <div>
         <h1>Cadastro de Prontuário</h1>
         <form>
-          <Complaints
-            arrComplaints={complaints}
+          <FormSelect
+            arrData={complaints}
             handleChange={createComplaint}
+            label="Queixa Principal"
+            helperText="Selecione a queixa"
           />
-          <Disease arrDiseases={diseases} handleChange={createDisease} />
+          <FormSelect
+            arrData={diseases}
+            handleChange={createDisease}
+            label="Doenças Adulto"
+            helperText="Selecione a doença"
+          />
           <p>Doenças selecionadas:</p>
           <Paper component="ul" className={classes.root}>
             {selectedDiseases &&
