@@ -20,14 +20,20 @@ const MedicalRecord = () => {
           ) : null}
           {medicalRecords &&
             medicalRecords.length > 0 &&
-            medicalRecords.map((record, i) => (
-              <Grid item xs={12} sm={6} md={3} key={`${record.historico}+${i}`}>
+            medicalRecords.map((record) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                key={`${record.historico}+${record.created_at}`}
+              >
                 <ProntCard
                   created={record.created_at}
                   queixa={record.queixa}
                   doencas={record.doencas}
                   historico={record.historico}
-                  key={`${record.historico}+${i}`}
+                  key={`${record.historico}+${record.created_at}`}
                 />
               </Grid>
             ))}
