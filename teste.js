@@ -1,1 +1,0 @@
-[{"historico":"Teste para criar formulário.","queixa":{"label":"Diarréia","id":3},"doencas":[{"label":"Câncer","id":1},{"label":"Asma","id":4},{"label":"Outras","id":5}],"created_at":"2020-09-07T15:24:27.018Z","_id":"KdKUuWIfG9cfjvcA"}]
